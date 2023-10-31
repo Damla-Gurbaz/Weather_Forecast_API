@@ -1,6 +1,7 @@
 document.getElementById('weather-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    const city = document.getElementById('city').value;
+    const cityValue = document.getElementById('city').value;
+    const city = cityValue.charAt(0).toUpperCase() + cityValue.slice(1);
 
     fetch(`https://us1.locationiq.com/v1/search.php?key=pk.9c292e3133fa21c63cf621d6e0dcb503&q=${city}&format=json`)
         .then(response => response.json())
@@ -13,7 +14,7 @@ document.getElementById('weather-form').addEventListener('submit', function (e) 
         .then(response => response.json())
         .then(data => {
             const resultDiv = document.getElementById('weather-result');
-            resultDiv.innerHTML = `<h2>${city} Weather Forecast</h2><p>Temperature: ${data.hourly.temperature_2m[0]}°C</p>`;
+            resultDiv.innerHTML = `<h2>${city}</h2> <h3>${data.hourly.temperature_2m[0]}°C</h3>`;
         })
         .catch(error => {
             console.error(error);
